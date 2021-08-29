@@ -4,11 +4,11 @@ import json
 import os
 import tqdm
 
-MASK_DIR = '../data/masks'
+MASK_DIR = '../data/t_masks'
 if not os.path.exists(MASK_DIR):
     os.mkdir(MASK_DIR)
 
-JSON_DIR = '../data/jsons'
+JSON_DIR = '../data/t_jsons'
 
 json_list = os.listdir(JSON_DIR)
 

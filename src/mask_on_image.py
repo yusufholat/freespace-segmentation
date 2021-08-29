@@ -2,9 +2,9 @@ import os, cv2, tqdm
 import numpy as np
 
 
-MASK_DIR  = '../data/masks/'
-IMAGE_DIR = '../data/images/'
-IMAGE_OUT_DIR = '../data/masked_images/'
+MASK_DIR  = '../data/t_masks/'
+IMAGE_DIR = '../data/t_images/'
+IMAGE_OUT_DIR = '../data/t_masked_images/'
 
 if not os.path.exists(IMAGE_OUT_DIR):
     os.mkdir(IMAGE_OUT_DIR)
@@ -12,23 +12,23 @@ if not os.path.exists(IMAGE_OUT_DIR):
 
 mask_list = os.listdir(MASK_DIR)
 
-# for mask_name in tqdm.tqdm(mask_list):
+for mask_name in tqdm.tqdm(mask_list):
 
-#     mask_name_without_expression = mask_name.split('.')[0]
+    mask_name_without_expression = mask_name.split('.')[0]
     
-#     mask_path      = os.path.join(MASK_DIR, mask_name)
-#     image_path     = os.path.join(IMAGE_DIR, mask_name_without_expression + '.jpg')
-#     image_out_path = os.path.join(IMAGE_OUT_DIR, mask_name)
+    mask_path      = os.path.join(MASK_DIR, mask_name)
+    image_path     = os.path.join(IMAGE_DIR, mask_name_without_expression + '.jpg')
+    image_out_path = os.path.join(IMAGE_OUT_DIR, mask_name)
 
-#     mask  = cv2.imread(mask_path, 0).astype(np.uint8)
-#     image = cv2.imread(image_path).astype(np.uint8)
+    mask  = cv2.imread(mask_path, 0).astype(np.uint8)
+    image = cv2.imread(image_path).astype(np.uint8)
 
-#    # mask_ind   = mask == 1
-#     cpy_image  = image.copy()
-#     image[mask==1, :] = (125, 125, 0)
-#     opac_image = (image/2 + cpy_image/2).astype(np.uint8)
+    # mask_ind   = mask == 1
+    cpy_image  = image.copy()
+    image[mask==1, :] = (125, 125, 0)
+    opac_image = (image/2 + cpy_image/2).astype(np.uint8)
     
-#     cv2.imwrite(image_out_path, opac_image)
+    cv2.imwrite(image_out_path, opac_image)
 
 
 def maskOnImage(image, mask):
