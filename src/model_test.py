@@ -8,10 +8,9 @@ import numpy as np
 import cv2
 import os
 from preprocess import tensorize_image
-from mask_on_image import maskOnImage
 
-model_path = 'model/first_model.pt'
-model = torch.load(model_path)
+model_path = 'model/second_model4.pt'
+model=torch.load(model_path,map_location=torch.device('cpu')) 
 model.eval()
 
 test_data_path_list = glob.glob('../data/test_data/*')
@@ -33,7 +32,7 @@ def predict(test_data_path_list):
 
     for i in tqdm.tqdm(range(len(test_data_path_list))):
         batch_test = test_data_path_list[i:i+1]
-        test_input = tensorize_image(batch_test, input_shape, cuda)
+        test_input = tensorize_image(batch_test, input_shape)
         output = model(test_input)
         out=torch.argmax(output,axis=1)
         out_cpu = out.cpu()

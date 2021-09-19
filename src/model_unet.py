@@ -27,7 +27,6 @@ class FoInternNet(nn.Module):
 
         self.last = nn.Conv2d(64, n_classes, 1)
         
-        
 
     def forward(self, x):
         conv1 = self.down1(x)

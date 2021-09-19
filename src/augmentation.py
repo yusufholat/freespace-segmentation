@@ -6,9 +6,8 @@ import tqdm
 from torchvision import transforms as T
 from PIL import Image
 
-IMAGE_DIR = '../data/t_images/'
-
-MASK_DIR  = '../data/t_masks/'
+IMAGE_DIR = '../data/images/'
+MASK_DIR  = '../data/masks/'
 
 
 #The path to the masks folder is assigned to the variable
@@ -34,8 +33,8 @@ for image in tqdm.tqdm(train_input_path_list):
     color_aug = T.ColorJitter(brightness=0.4, contrast=0.4, hue=0.06)
 
     img_aug = color_aug(img)
-    new_path=image[:-4]+"-1"+".png"
-    new_path=new_path.replace('image', 'augmentation')
+    new_path=image[:-4]+"-1"+".jpg"
+    new_path=new_path.replace('images', 'images_augmentation')
     img_aug=np.array(img_aug)
     cv2.imwrite(new_path,img_aug)
     
@@ -78,7 +77,7 @@ for mask in tqdm.tqdm(train_label_path_list):
     msk=cv2.imread(mask)
     new_mask=msk
     newm_path=mask[:-4]+"-1"+".png"
-    newm_path=newm_path.replace('masks', 'augmentation_mask')
+    newm_path=newm_path.replace('masks', 'masks_augmentation')
     cv2.imwrite(newm_path,new_mask)
     
     # flipUD = np.flipud(msk)

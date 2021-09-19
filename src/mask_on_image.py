@@ -2,9 +2,9 @@ import os, cv2, tqdm
 import numpy as np
 
 
-MASK_DIR  = '../data/t_masks/'
-IMAGE_DIR = '../data/t_images/'
-IMAGE_OUT_DIR = '../data/t_masked_images/'
+MASK_DIR  = '../data/masks/'
+IMAGE_DIR = '../data/images/'
+IMAGE_OUT_DIR = '../data/masked_images/'
 
 if not os.path.exists(IMAGE_OUT_DIR):
     os.mkdir(IMAGE_OUT_DIR)

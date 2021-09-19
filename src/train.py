@@ -9,8 +9,7 @@ import tqdm
 from model_unet import FoInternNet
 from preprocess import tensorize_image, tensorize_mask,image_mask_check
 import shutil
-import cv2
-import matplotlib.ticker as mticker
+
 ######### PARAMETERS ##########
 valid_size = 0.3
 test_size  = 0.1
@@ -27,7 +26,8 @@ ROOT_DIR = os.path.join(SRC_DIR, '..')
 DATA_DIR = os.path.join(ROOT_DIR, 'data')
 MASK_DIR = os.path.join(DATA_DIR, 'masks')
 IMAGE_DIR = os.path.join(DATA_DIR, 'images')
-
+AUG_IMAGE=os.path.join(DATA_DIR,'images_augmentation')
+AUG_MASK=os.path.join(DATA_DIR,'masks_augmentation')
 ###############################
 
 
@@ -37,6 +37,12 @@ image_path_list.sort()
 
 mask_path_list = glob.glob(os.path.join(MASK_DIR, '*'))
 mask_path_list.sort()
+
+# PREPARE IMAGE AND MASK LISTS (AUGMENTATITIONS)
+aug_path_list = glob.glob(os.path.join(AUG_IMAGE, '*'))
+aug_path_list.sort()
+aug_mask_path_list = glob.glob(os.path.join(AUG_MASK, '*'))
+aug_mask_path_list.sort()
 
 # DATA CHECK
 image_mask_check(image_path_list, mask_path_list)
@@ -65,6 +71,10 @@ valid_label_path_list = mask_path_list[test_ind:valid_ind]
 train_input_path_list = image_path_list[valid_ind:]
 train_label_path_list = mask_path_list[valid_ind:]
 
+# ADD AUGMENTATION IMAGES
+aug_size=int(len(aug_mask_path_list)/2)
+train_input_path_list=aug_path_list[:aug_size]+train_input_path_list+aug_path_list[aug_size:]
+train_label_path_list=aug_mask_path_list[:aug_size]+train_label_path_list+aug_mask_path_list[aug_size:]
 
 
 # DEFINE STEPS PER EPOCH
